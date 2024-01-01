@@ -33,34 +33,62 @@ public class AccessoriesController {
 	
 //access	
 @GetMapping
-public List<AccessoriesVO> getAllHolders(){
-	LOGGER.debug("ACCESSORIES CONTROLLER ERROR");
-	List<AccessoriesVO> accessVO = accessService.getAllHolders();
+public AccessoriesVO getAllHolders(){
+	LOGGER.debug("getAllHolders Service call Strated...");
+	AccessoriesVO accessVO = new 	AccessoriesVO();
+	try {
+		List<AccessoriesVO> accesVO = accessService.getAllHolders();
+		LOGGER.info("Holders information get successfully for getAllHolders");
+	}catch (Exception e) {
+		LOGGER.error("Failed to Fetch Holder Record for getAllHolders",e.getMessage());
+	}
+	LOGGER.debug("getAllHolders Service call Ended...");
 	return accessVO;
 }
 
 //prop
 @GetMapping("/items")
-public List<PropertyVO> getAllItems(){
-	LOGGER.debug("PROPERTY CONTROLLER ERROR");
-List<PropertyVO> propertyVO = propService.getAllItems();
-return propertyVO;
+public PropertyVO getAllItems(){
+	LOGGER.debug("getAllItems Service Call Strated...");
+	PropertyVO propertyVO = new PropertyVO();
+	try {
+		List<PropertyVO> propVO = propService.getAllItems();
+	LOGGER.info("Items information get successfully for getAllItems");
+	} catch (Exception e) {
+		LOGGER.error("Failed to Fetch Items Record for getAllItems",e.getMessage());
+	}
+	LOGGER.debug("getAllItems Service call Ended...");
+	return propertyVO;
 }
 
 //access
 
 @GetMapping("/{id}")
 public AccessoriesVO getHoldersById(@PathVariable int id) {
-	LOGGER.debug("ACCESSORIES CONTROLLER ERROR");
-	AccessoriesVO accessVO = accessService.getHolderssById(id);
+	LOGGER.debug("getHoldersById service Call Started");
+	AccessoriesVO accessVO = new 	AccessoriesVO();
+	try {
+	AccessoriesVO accVO = accessService.getHolderssById(id);
+	LOGGER.info("Holders information get successfully for getHolderssById");
+	} catch(Exception e) {
+		LOGGER.error("Failed to Fetch Holder Record for getHolderssById",e.getMessage());
+	}
+	LOGGER.debug("getAllHoldersById Service call Ended...");
 	return accessVO;
 }
 
 //prop
 @GetMapping("/items/{id}")
 public PropertyVO getItemsById(@PathVariable int id) {
-		LOGGER.debug("PROPERTY CONTROLLER ERROR");
-	PropertyVO propertyVO = propService.getItemsById(id);
+		LOGGER.debug("getItemsById Service Call Strated...");
+		PropertyVO propertyVO = new PropertyVO();
+		try {
+			LOGGER.info("Items information get successfully for getItemsById");
+			PropertyVO propVO = propService.getItemsById(id);
+} catch (Exception e) {
+	LOGGER.error("Failed to Fetch Items Record for getItemsById",e.getMessage());
+}
+		LOGGER.debug("getItemsById Service call Ended...");
 	return propertyVO;
 }
 	

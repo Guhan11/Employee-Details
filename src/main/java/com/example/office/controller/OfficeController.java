@@ -29,9 +29,16 @@ public class OfficeController {
 	OfficeService officeService;
 
 	@GetMapping
-	public List<OfficeVO> getAllEmployee() {
-		LOGGER.debug("OFFICE CONTROLLER ERROR");
-		List<OfficeVO> officeVO = officeService.getAllEmployee();
+	public OfficeVO getAllEmployee() {
+		LOGGER.debug("getAllEmplopyee Service Call Started...");
+		OfficeVO officeVO = new OfficeVO();
+		try{
+		List<OfficeVO> offVO = officeService.getAllEmployee();
+		LOGGER.info("Employee information get successfully for getAllEmploee");
+		} catch (Exception e) {
+			LOGGER.error("Failed to Fetch Employee Record for getAllEmployee", e.getMessage());
+		}
+		LOGGER.debug("getAllEmployee Service call Ended");
 		return officeVO;
 	}
 
@@ -51,20 +58,41 @@ public class OfficeController {
 
 	@PostMapping
 	public OfficeVO createEmployee(@RequestBody OfficeVO officeVO) {
-		LOGGER.debug(" OFFICE CONTROLLER  ERROR");
-		OfficeVO updatedOfficeVO = officeService.createEmployee(officeVO);
-		return updatedOfficeVO;
+		LOGGER.debug(" createEmployee Service Call Strated...");
+		OfficeVO officeVO1 = new OfficeVO();
+		try {
+			officeService.createEmployee(officeVO1);
+		LOGGER.info("Employee Information get successfull for officeVO", officeVO1);
+		} catch (Exception e) {
+		LOGGER.error("Failed to fetch employee record for officeVO ",officeVO1, e.getMessage());
+		}
+		LOGGER.debug("createEmployee Service Call Ended...");
+		return officeVO1;
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateEmplopyee(@PathVariable int id, @RequestBody OfficeVO officeVO) {
-		LOGGER.debug(" OFFICE CONTROLLER  ERROR");
-		return officeService.updateEmplopyee(id, officeVO);
+		LOGGER.debug("updateEmployee Service Call Strated...");
+		try {
+			LOGGER.info("employee information get successfull for id and officeVO",id, officeVO);
+		 officeService.updateEmplopyee(id, officeVO);		 
+		} catch (Exception e) {
+			LOGGER.error("Failed to fetch employee record for id and officeVO", id, officeVO, e.getMessage());
+		}
+		 LOGGER.debug("updateEmployee Service Call Ended...");
+		 return ResponseEntity.ok().body("Updated Successfully");
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteEmployee(@PathVariable int id) {
-		LOGGER.debug(" OFFICE CONTROLLER  ERROR");
-		return officeService.deleteEmployee(id);
+		LOGGER.debug("deleteEmployee Service Call Strated...");
+		try {
+		 officeService.deleteEmployee(id);
+		 LOGGER.info("Employee Information get successfull for id ", id);
+		} catch (Exception e) {
+			LOGGER.error("Failed to fetch employee record for id", id,e.getMessage());
+		}
+		LOGGER.debug("deleteEmployee Service Call Ended");
+		 return ResponseEntity.ok().body("Deleted Successfully");
 	}
 }
