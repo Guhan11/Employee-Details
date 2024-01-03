@@ -1,5 +1,6 @@
 package com.example.office.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -29,11 +30,11 @@ public class OfficeController {
 	OfficeService officeService;
 
 	@GetMapping
-	public OfficeVO getAllEmployee() {
+	public List<OfficeVO> getAllEmployee() {
 		LOGGER.debug("getAllEmplopyee Service Call Started...");
-		OfficeVO officeVO = new OfficeVO();
+		List<OfficeVO> officeVO = new  ArrayList<>();
 		try{
-		List<OfficeVO> offVO = officeService.getAllEmployee();
+			 officeVO = officeService.getAllEmployee();
 		LOGGER.info("Employee information get successfully for getAllEmploee");
 		} catch (Exception e) {
 			LOGGER.error("Failed to Fetch Employee Record for getAllEmployee", e.getMessage());
@@ -57,17 +58,17 @@ public class OfficeController {
 	}
 
 	@PostMapping
-	public OfficeVO createEmployee(@RequestBody OfficeVO officeVO) {
+	public OfficeVO createEmployee(@RequestBody OfficeVO offVO) {
 		LOGGER.debug(" createEmployee Service Call Strated...");
-		OfficeVO officeVO1 = new OfficeVO();
+		OfficeVO officeVO = new OfficeVO();
 		try {
-			officeService.createEmployee(officeVO1);
-		LOGGER.info("Employee Information get successfull for officeVO", officeVO1);
+			officeVO = officeService.createEmployee(offVO);
+		LOGGER.info("Employee Information get successfull for officeVO", offVO);
 		} catch (Exception e) {
-		LOGGER.error("Failed to fetch employee record for officeVO ",officeVO1, e.getMessage());
+		LOGGER.error("Failed to fetch employee record for officeVO ",offVO, e.getMessage());
 		}
 		LOGGER.debug("createEmployee Service Call Ended...");
-		return officeVO1;
+		return officeVO;
 	}
 
 	@PutMapping("/{id}")
